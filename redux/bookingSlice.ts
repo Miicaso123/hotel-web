@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from 'axios';
 
 // Типизация данных о бронировании
 interface Booking {
@@ -22,9 +23,11 @@ const initialState: BookingState = {
   error: null,
 };
 
+axios.defaults.baseURL = process.env.BASE_URL;
+
 // Асинхронное действие: получение всех бронирований
 export const fetchBookings = createAsyncThunk("bookings/fetch", async () => {
-  const response = await fetch("http://localhost:5000/bookings");
+  const response = await fetch("/bookings");
   if (!response.ok) throw new Error("Ошибка загрузки данных");
   return (await response.json()) as Booking[];
 });
@@ -34,7 +37,7 @@ export const createBooking = createAsyncThunk(
   "bookings/create",
   async (newBooking: Booking, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:5000/bookings", {
+      const response = await fetch("/bookings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

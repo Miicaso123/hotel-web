@@ -19,7 +19,7 @@ const initialState: ImageState = {
   error: null,
 };
 
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = process.env.BASE_URL;
 
 export const uploadImage = createAsyncThunk(
   'images/uploadImage',
@@ -62,7 +62,7 @@ export const fetchImages = createAsyncThunk(
 
 //удаления
 export const deleteImage = createAsyncThunk('images/deleteImage', async (id: number) => {
-  const response = await axios.delete(`http://localhost:5000/images/${id}`);
+  const response = await axios.delete(`/images/${id}`);
   return id;
 });
 

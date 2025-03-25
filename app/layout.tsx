@@ -12,17 +12,19 @@ import I18nProvider from '@/components/i18n-provider';
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html>
-      <head />
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <meta charSet="UTF-8" />
+      </head>
       <body>
         <Provider store={store}>
-            <Header />
-            <main>{children}</main> {/* Контент страниц */}
-            <footer className="footer">
-              <p>&copy; 2025 Hotel Name. All rights reserved.</p>
-            </footer>
+          <Header />
+          <main>{children}</main> {/* Контент страниц */}
+          <footer className="footer">
+            <p>&copy; 2025 Hotel Name. All rights reserved.</p>
+          </footer>
         </Provider>
       </body>
     </html>
   );
 }
-

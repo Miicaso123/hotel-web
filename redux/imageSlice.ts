@@ -1,5 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 interface Image {
   id: number;
@@ -19,7 +22,7 @@ const initialState: ImageState = {
   error: null,
 };
 
-axios.defaults.baseURL = process.env.BASE_URL;
+// axios.defaults.baseURL = process.env.BASE_URL;
 
 export const uploadImage = createAsyncThunk(
   'images/uploadImage',
@@ -35,7 +38,7 @@ export const uploadImage = createAsyncThunk(
 
       console.log('Отправляемое описание:', formData.get('description'));
 
-      const response = await axios.post('/upload', formData, {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -52,7 +55,7 @@ export const fetchImages = createAsyncThunk(
   'images/fetchImages',
   async (category: string, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/images?category=${category}`);
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/images?category=${category}`);
       return response.data as Image[];
     } catch (error: any) {
       return rejectWithValue(error.response?.data || 'Ошибка загрузки изображений');
@@ -62,7 +65,7 @@ export const fetchImages = createAsyncThunk(
 
 //удаления
 export const deleteImage = createAsyncThunk('images/deleteImage', async (id: number) => {
-  const response = await axios.delete(`/images/${id}`);
+  const response = await axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/images/${id}`);
   return id;
 });
 

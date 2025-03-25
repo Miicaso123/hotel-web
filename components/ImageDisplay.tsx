@@ -30,17 +30,14 @@ const ImageDisplay: React.FC<Props> = ({ category }) => {
       {images.map((image, index) => (
         <div
           key={image.id}
-          className={styles['row']} // общий класс для строки
-          style={{
-            flexDirection: index % 2 === 0 ? 'row' : 'row-reverse', // Чередование
-          }}>
+          className={`${styles.row} ${index % 2 === 0 ? styles.normal : styles.reversed}`}>
           <div className={styles.description}>
             <h2>Номер {index + 1}</h2>
-            <p>{image.description || 'Описание отсутствует'}</p> {/* Отображаем описание */}
+            <p>{image.description || 'Описание отсутствует'}</p>
           </div>
 
           <div className={styles['image-item']}>
-            <img src={`http://localhost:5000/uploads/${image.path}`} alt="Uploaded" />
+            <img src={`${process.env.NEXT_PUBLIC_BASE_URL}/uploads/${image.path}`} alt="Uploaded" />
             <button onClick={() => handleDelete(image.id)}>Delete</button>
           </div>
         </div>

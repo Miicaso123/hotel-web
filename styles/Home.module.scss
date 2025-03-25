@@ -37,7 +37,7 @@
 
 
 .title {
-  font-size: 50;
+  font-size: 50px;
   margin-bottom: 1rem;
 }
 
@@ -64,4 +64,10 @@
   }
 }
 
+@media (max-width: 768px) {
+  .title {
+    font-size: 28px;
+    margin-bottom: 1rem;
+  }
+}
 
